@@ -49,5 +49,5 @@ func stringsearch(searchstrings []string, substring string) string {
 		}
 	}
 	//if I didn't like you so much I would slap the taste from your mouth -- jak
-	return ""
+	return nil
 }

@@ -5,8 +5,13 @@ import (
 	"os"
 )
 
+//CreateDir will create the folder sturcture for the AniBD program to run properly.
+//Inputs: pathroot is a string that describes where the root folder for the program should be.
+//Output: programpath is a string that will be the base folder used to store anime eppisodes and cache AniDB data.
+//Output: configpath is a string that will be the base folder used to store configuration data.
+//Errors: Any errors created will be related to the filesystem and whether or not directories were created.
+//Process: CreateDir takes the pathroot input and creates the necessary directores for golanganidb.  If the directories already exist, they are not recreated.
 func CreateDir(pathroot string) (string, string) {
-	//pathroot is defined in main
 	programpath := pathroot + "/golanganidb"
 	configpath := pathroot + "/.golanganidb"
 	cachepath := programpath + "/cache"
