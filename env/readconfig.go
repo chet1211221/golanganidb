@@ -27,6 +27,7 @@ func ReadConfig(configfile string) *Config {
 	return configstruct
 }
 
+//what happens when you run out of letters? You can only have 26 variables bro -- jak
 func (h *Config) configtostruct(configstring []string) *Config {
 	h.Client = stringsearch(configstring, "client")
 	h.Clientver, _ = strconv.Atoi(stringsearch(configstring, "clientver"))
@@ -37,6 +38,7 @@ func (h *Config) configtostruct(configstring []string) *Config {
 }
 
 func stringsearch(searchstrings []string, substring string) string {
+	//See comment about 'h' above in configtostruct() - only 24 remaining! -- jak
 	for g := range searchstrings {
 		result := strings.Contains(searchstrings[g], substring)
 		if result == true {
@@ -46,5 +48,6 @@ func stringsearch(searchstrings []string, substring string) string {
 			return strings.TrimSpace(configlinesplit[1])
 		}
 	}
+	//if I didn't like you so much I would slap the taste from your mouth -- jak
 	return ""
 }
