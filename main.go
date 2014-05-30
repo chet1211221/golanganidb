@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/chet1211221/golanganidb/env"
+	"github.com/chetbishop/golanganidb/env"
 )
 
 func main() {
