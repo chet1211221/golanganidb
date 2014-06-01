@@ -2,7 +2,7 @@
 package env
 
 import (
-	"fmt"
+	"log"
 	"os"
 )
 
@@ -30,28 +30,18 @@ func CreateDir(pathroot string) (string, string) {
 }
 
 //exists returns whether the given file or directory exists or not in the form
-//of a bool
+//of an error message.
 //Input: path is a string that points to the file or directory to check
-//Output: bool for if the file or directory exists.
-//Output: error is outputted if the file does not exist or the operating sytem
-//had an error accessing the path or file.
-//Error: error message return is related to the file or directory not existing
-//and possibly other details if the operating system is blocking access to the
-//file or directory.
+//Output: error message from os.Stat
 //Process: check the path with os.stat.  if no error is returned the file exists
-//and return true.  If an error is returned then check to see if the error is
-//known to report that a file or directory does not exits and return the error.
-//If the error is not known then return the error.
-func exists(path string) (bool, error) {
-	//This needs to be simplified - jak
+//and retur nil.  If an error is returned then return the error.
+func exists(path string) error {
 	_, err := os.Stat(path)
-	if err == nil {
-		return true, nil
+	if err != nil {
+		return err
+	} else {
+		return nil
 	}
-	if os.IsNotExist(err) == false {
-		return false, err
-	}
-	return false, err
 }
 
 //makedir creates a directory with execute permissions for owner and group.
@@ -61,16 +51,15 @@ func exists(path string) (bool, error) {
 //Error: The script panics when it is unable to create a directory.
 //Process: take the input and create a directory.
 func makedir(path string) {
-	pathexists, err := exists(path)
-	if pathexists == false {
+	err := exists(path)
+	if err != nil {
 		patherr := os.Mkdir(path, 0770)
-		if patherr == nil {
-			fmt.Println(path, " created successfully")
+		if patherr != nil {
+			log.Fatal("Unable to create directory for program.")
 		} else {
-			fmt.Println(patherr)
-			panic(fmt.Sprintf("%v\n", "Unable to create directory for program."))
+			log.Println(path, " created successfully")
 		}
 	} else {
-		fmt.Println(path, " already exists")
+		log.Println(path, " already exists")
 	}
 }

@@ -1,7 +1,7 @@
 package env
 
 import (
-	"fmt"
+	"log"
 	"os"
 	"strconv"
 )
@@ -21,14 +21,11 @@ import (
 func CreateConfig(configfile string, initialconfig *Config) {
 	//need to update this to be a general write configuration file rather than
 	//just writing the inital configuration.
-	configfileexists, _ := exists(configfile)
-	if configfileexists == true {
-		fmt.Println("Config file already exists")
-	} else {
+	err := exists(configfile)
+	if err != nil {
 		configfilecreated, err := os.Create(configfile)
 		if err != nil {
-			fmt.Println(err)
-			panic(fmt.Sprintf("%v\n", "Unable to create configuration file for program.  See above line"))
+			log.Fatal(err, "Unable to create configuration file for program.")
 		}
 		defer configfilecreated.Close()
 		configfilecreated.WriteString("client=" + initialconfig.Client + "\r\n")
@@ -36,6 +33,8 @@ func CreateConfig(configfile string, initialconfig *Config) {
 		configfilecreated.WriteString("protover=" + strconv.Itoa(initialconfig.Protover) + "\r\n")
 		configfilecreated.WriteString("url=" + initialconfig.Url + "\r\n")
 		configfilecreated.WriteString("port=" + strconv.Itoa(initialconfig.Port) + "\r\n")
+	} else {
+		log.Println("Config file already exists")
 	}
 
 }

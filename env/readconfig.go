@@ -1,9 +1,8 @@
 package env
 
 import (
-	//"os"
-	"fmt"
 	"io/ioutil"
+	"log"
 	"strconv"
 	"strings"
 )
@@ -17,7 +16,7 @@ import (
 func ReadConfig(configfile string) *Config {
 	configfilebyte, err := ioutil.ReadFile(configfile)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
 	configstruct := new(Config)
 	configfilestring := strings.SplitAfter(string(configfilebyte[:]), "\r\n")
@@ -57,5 +56,7 @@ func stringsearch(searchstrings []string, substring string) string {
 			return strings.TrimSpace(configlinesplit[1])
 		}
 	}
-	return nil
+	//see http://golang.org/ref/spec#The_zero_value "" is the correct zero value
+	//for a string
+	return ""
 }
