@@ -26,4 +26,6 @@ func WriteConfig(configfile string, configstruct *Config) {
 	configfilecreated.WriteString("protover=" + strconv.Itoa(configstruct.Protover) + "\r\n")
 	configfilecreated.WriteString("url=" + configstruct.Url + "\r\n")
 	configfilecreated.WriteString("port=" + strconv.Itoa(configstruct.Port) + "\r\n")
+	configfilecreated.WriteString("programdatapath=" + configstruct.ProgramDataPath + "\r\n")
+	configfilecreated.WriteString("programconfigpath=" + configstruct.ProgramConfigPath + "\r\n")
 }

@@ -1,6 +1,7 @@
 package env
 
 import (
+	//"fmt"
 	"io/ioutil"
 	"log"
 	"strconv"
@@ -13,12 +14,11 @@ import (
 //Error: An error is returned if the existing configuration file cannot be read.
 //Process: Read the existing configuration file as a byte.  Create a new Config
 //struct. Split the byte file into lines and pass to the configtostruct function.
-func ReadConfig(configfile string) *Config {
+func (configstruct *Config) ReadConfig(configfile string) *Config {
 	configfilebyte, err := ioutil.ReadFile(configfile)
 	if err != nil {
 		log.Println(err)
 	}
-	configstruct := new(Config)
 	configfilestring := strings.SplitAfter(string(configfilebyte[:]), "\r\n")
 	configstruct.configtostruct(configfilestring)
 	return configstruct
@@ -37,6 +37,8 @@ func (newconfig *Config) configtostruct(configstring []string) *Config {
 	newconfig.Protover, _ = strconv.Atoi(stringsearch(configstring, "protover"))
 	newconfig.Url = stringsearch(configstring, "url")
 	newconfig.Port, _ = strconv.Atoi(stringsearch(configstring, "port"))
+	newconfig.ProgramConfigPath = stringsearch(configstring, "programconfigpath")
+	newconfig.ProgramDataPath = stringsearch(configstring, "programdatapath")
 	return newconfig
 }
 
