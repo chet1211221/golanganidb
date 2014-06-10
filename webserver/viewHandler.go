@@ -10,5 +10,5 @@ func viewHandler(w http.ResponseWriter, r *http.Request, title string) {
 	//	http.Redirect(w, r, "/edit/"+title, http.StatusFound)
 	//	return
 	//}
-	renderTemplate(w, "view", p)
+	renderTemplate(w, "home", p)
 }
