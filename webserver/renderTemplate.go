@@ -27,4 +27,10 @@ func renderTemplate(w http.ResponseWriter, tmpl string, p *Page) {
 	}
 }
 
+//templates is a variable containing *Template structs.
+//Input: The templates to use with the webserver.
+//Error: If the template files referenced do not parse correctly, a panic is
+//generated.
+//Process: The template files are parsed by template.ParseFiles and then checked
+//with template.Must.
 var templates = template.Must(template.ParseFiles("index.html", "view.html"))
