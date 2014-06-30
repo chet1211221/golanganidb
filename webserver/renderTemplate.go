@@ -33,4 +33,4 @@ func renderTemplate(w http.ResponseWriter, tmpl string, p *Page) {
 //generated.
 //Process: The template files are parsed by template.ParseFiles and then checked
 //with template.Must.
-var templates = template.Must(template.ParseFiles("index.html", "view.html"))
+var templates = template.Must(template.ParseFiles("web/view.html"))

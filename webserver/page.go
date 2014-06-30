@@ -4,5 +4,5 @@ package webserver
 //Additional fields will be added as I figure out which elements are needed
 type Page struct {
 	Title string //Title of webpage
-	Body  []byte //Body in byte form.
+	Body  string //Body in byte form.
 }
