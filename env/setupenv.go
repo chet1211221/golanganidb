@@ -32,7 +32,7 @@ func SetupEnv() *Config {
 		log.Println("Created new config file at", RunningConfig.ProgramConfigPath+"/golanganidb.conf")
 	} else {
 		RunningConfig.ReadConfig(*configurationFilePtr)
-		log.Println("Read existing config file from", GetHomeDir()+"/.golanganidb/golanganidb.conf")
+		log.Println("Read existing config file from", RunningConfig.ProgramConfigPath+"/.golanganidb/golanganidb.conf")
 	}
 	return RunningConfig
 }

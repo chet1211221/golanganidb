@@ -22,7 +22,7 @@ import (
 func CreateDir(pathroot string) (string, string) {
 	programpath := pathroot + "/golanganidb"
 	configpath := pathroot + "/.golanganidb"
-	cachepath := programpath + "/cache"
+	cachepath := configpath + "/cache"
 	makedir(programpath)
 	makedir(configpath)
 	makedir(cachepath)

@@ -7,6 +7,6 @@ type Config struct {
 	Protover          int    //The version of the AniDB API to use.
 	Url               string //The URL for the AniDB API.
 	Port              int    //Port number used to connect to the AniDB API.
-	ProgramDataPath   string //Path where main data for program will be stored
-	ProgramConfigPath string //Path for configuration options
+	ProgramDataPath   string //Path where Anime and Episodes will be stored
+	ProgramConfigPath string //Path for all other data
 }
