@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -95,27 +96,30 @@ func AnimeParse(xmlFilestring string) AnimeTitles {
 	return q
 }
 
-func AnimeSearch(animeTitlesStruct AnimeTitles) {
-	for count, aid := range animeTitlesStruct.AnimeList {
-		log.Println("count", count)
-		//log.Println(aid.Aid)
-		for _, title := range aid.Title {
-			log.Println(count)
-		//	log.Println(title.Name)
-		//	log.Println(title.AnimeType)
-		//	log.Println(title.Lang)
-		//}
-
+//AnimeSearch will seach an AnimeTitles struct for an anime name and language.
+//It will return the aid number(s) and anime name(s) from the AnimeTitles struct.
+func AnimeSearch(animeTitlesStruct AnimeTitles, animename string, animelang string) [][]string {
+	var searchresults [][]string
+	for _, aid := range animeTitlesStruct.AnimeList {
+		for x, title := range aid.Title {
+			if AnimeTitleCompare(aid.Title[x], animename, animelang) == true {
+				searchresults = append(searchresults, []string{strconv.Itoa(aid.Aid), title.Name})
+			}
+		}
 	}
-
+	return searchresults
 }
 
 func AnimeTitleCompare(animetitle AnimeTitle, animename string, animelang string) bool {
 	structname := strings.ToLower(animetitle.Name)
 	structlang := strings.ToLower(animetitle.Lang)
-	log.Println(structname)
-	log.Println(structlang)
+	animename = strings.ToLower(animename)
+	animelang = strings.ToLower(animelang)
 
-	return true
-
+	if strings.Contains(structname, animename) == true {
+		if structlang == animelang {
+			return true
+		}
+	}
+	return false
 }
