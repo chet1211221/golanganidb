@@ -88,12 +88,12 @@ func AnimeParse(xmlFilestring string) AnimeTitles {
 		log.Println("Error opening file:", err)
 	}
 	defer xmlFile.Close()
-
+	log.Println("opened file")
 	b, _ := ioutil.ReadAll(xmlFile)
 
-	var q AnimeTitles
-	xml.Unmarshal(b, &q)
-	return q
+	var titles AnimeTitles
+	xml.Unmarshal(b, &titles)
+	return titles
 }
 
 //AnimeSearch will seach an AnimeTitles struct for an anime name and language.
@@ -122,4 +122,10 @@ func AnimeTitleCompare(animetitle AnimeTitle, animename string, animelang string
 		}
 	}
 	return false
+}
+func AnimeSearchWrapper(RunningConfig *env.Config, animename string) [][]string {
+	AnimeTitlesCheck(RunningConfig)
+	animexml := AnimeParse(RunningConfig.ProgramConfigPath + "/cache/anime-titles.xml")
+	results := AnimeSearch(animexml, animename, "en")
+	return results
 }

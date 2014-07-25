@@ -1,0 +1,14 @@
+<h1>Editing {{.Title}}</h1>
+
+<form action="/save/{{.Title}}" method="POST">
+<div><textarea name="body" rows="20" cols="80">{{printf "%s" .Body}}</textarea></div>
+<div><textarea name="client" rows="1" cols="80">client</textarea></div>
+<div><textarea name="clientver" rows="1" cols="80">clientver</textarea></div>
+<div><textarea name="protover" rows="1" cols="80">protover</textarea></div>
+<div><textarea name="url" rows="1" cols="80">url</textarea></div>
+<div><textarea name="port" rows="1" cols="80">port</textarea></div>
+<div><textarea name="programdatapath" rows="1" cols="80">Program Path</textarea></div>
+<div><textarea name="programconfigpath" rows="1" cols="80">Program Config</textarea></div>
+<div> First name: <input type="text" name="fname"><br>
+<div><input type="submit" value="Save"></div>
+</form>
