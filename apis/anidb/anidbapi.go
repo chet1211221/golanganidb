@@ -127,5 +127,6 @@ func AnimeSearchWrapper(RunningConfig *env.Config, animename string) [][]string 
 	AnimeTitlesCheck(RunningConfig)
 	animexml := AnimeParse(RunningConfig.ProgramConfigPath + "/cache/anime-titles.xml")
 	results := AnimeSearch(animexml, animename, "en")
+	log.Println(results)
 	return results
 }
