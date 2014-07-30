@@ -1,6 +1,5 @@
 {{/* HTML body for searching for anime */}}
 {{define "home"}}
-{{template "header"}}
 <div class="main-container">
             <div class="main wrapper clearfix">
                 <article>
@@ -8,6 +7,19 @@
                      	<h1>Go AniDB</h1>
 				<p>AniDB HTTP interface used to track and download anime.</p>
                     </header>
+		    <section>
+                        <h2>Anime</h2>
+                        <table>
+				<tr>
+					<th>Name</th>
+				</tr>
+					{{range .Anime}}
+					<tr>					
+					<td><a href="/anime/{{.Name}}/">{{.Name}}</td>
+					</tr>
+					{{end}}
+			</table>
+                    </section>
                 </article>
                 <aside>
                     <h3>aside</h3>
@@ -16,5 +28,4 @@
 
             </div> <!-- #main -->
         </div> <!-- #main-container -->
-{{template "footer"}}
 {{end}}

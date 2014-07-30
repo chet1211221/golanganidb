@@ -2,16 +2,21 @@
 package webserver
 
 import (
+	"database/sql"
+	"github.com/chetbishop/golanganidb/apis/anidb"
 	"github.com/chetbishop/golanganidb/env"
 	"net/http"
 )
 
 var runningConfig *env.Config
+var DB *sql.DB
 
-func WebServer(runningConfigImport *env.Config) {
+func WebServer(runningConfigImport *env.Config, db *sql.DB) {
 	runningConfig = runningConfigImport
+	DB = db
 	mux := http.NewServeMux()
 	mux.HandleFunc("/add/search", addSearchHandler)
+	mux.HandleFunc("/add/add", addAddHandler)
 	mux.HandleFunc("/", homeHandler)
 	fscss := justFilesFilesystem{http.Dir("web/css/")}
 	fsjs := justFilesFilesystem{http.Dir("web/js/")}
@@ -21,7 +26,8 @@ func WebServer(runningConfigImport *env.Config) {
 }
 
 type Page struct {
-	Title string //Title of webpage
-	Body  string //Body in byte form.
-	URL   string //URL of the request
+	Title string                             //Title of webpage
+	Body  string                             //Body in byte form.
+	URL   string                             //URL of the request
+	Anime []anidbapi.AnimeTitleSearchResults //various anime information
 }

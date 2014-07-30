@@ -1,6 +1,7 @@
 package env
 
 import (
+	"database/sql"
 	"flag"
 	"log"
 )
@@ -16,23 +17,25 @@ import (
 //already exists.  If no configuration file exists, then complete the Config
 //struct with default paramerers and write the configuration file to disk.
 //If a configuration file does exist, then read its contents into the Config struct.
-func SetupEnv() *Config {
-
+func SetupEnv() (*Config, *sql.DB) {
 	programRootPath := flag.String("root-path", GetHomeDir(), "Root path for all program data")
 	flag.Parse()
 	configurationFilePtr := flag.String("configuration-file", *programRootPath+"/.golanganidb/golanganidb.conf", "Location of custom configuration file")
 	flag.Parse()
 	RunningConfig := new(Config)
+	var DB *sql.DB
 	err := exists(*configurationFilePtr)
 	if err != nil {
 		RunningConfig.ProgramDataPath, RunningConfig.ProgramConfigPath = CreateDir(*programRootPath)
 		initialconfigstring := []string{"client=golanganidb", "clientver=1", "protover=1", "url=http://api.anidb.net", "port=9001", "programdatapath=" + RunningConfig.ProgramDataPath, "programconfigpath=" + RunningConfig.ProgramConfigPath}
 		RunningConfig.configtostruct(initialconfigstring)
 		WriteConfig(RunningConfig.ProgramConfigPath+"/golanganidb.conf", RunningConfig)
+		DB = CreateDatabase(RunningConfig)
 		log.Println("Created new config file at", RunningConfig.ProgramConfigPath+"/golanganidb.conf")
 	} else {
 		RunningConfig.ReadConfig(*configurationFilePtr)
+		DB = CreateDatabase(RunningConfig)
 		log.Println("Read existing config file from", RunningConfig.ProgramConfigPath+"/.golanganidb/golanganidb.conf")
 	}
-	return RunningConfig
+	return RunningConfig, DB
 }

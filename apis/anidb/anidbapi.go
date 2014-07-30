@@ -62,24 +62,6 @@ func testTime24h(modtime time.Time) bool {
 	return result
 }
 
-//AnimeTitles is the struct for the top level of anime-titles.xml
-type AnimeTitles struct {
-	AnimeList []Anime `xml:"anime"` //from anime-titles.xml
-}
-
-//Anime is the struct for the anime level of anime-titles.xml
-type Anime struct {
-	Aid   int          `xml:"aid,attr"` //from anime-titles.xml
-	Title []AnimeTitle `xml:"title"`    //from anime-titles.xml
-}
-
-//AnimeTitle is the struct for the title lines of anime-titles.xml
-type AnimeTitle struct {
-	Name      string `xml:",chardata"` //from anime-titles.xml
-	AnimeType string `xml:"type,attr"` //from anime-titles.xml
-	Lang      string `xml:"lang,attr"` //from anime-titles.xml
-}
-
 //AnimeParse takes anime-titles.xml and produces an AnimeTitles struct with
 //all revelent information
 func AnimeParse(xmlFilestring string) AnimeTitles {
@@ -98,12 +80,15 @@ func AnimeParse(xmlFilestring string) AnimeTitles {
 
 //AnimeSearch will seach an AnimeTitles struct for an anime name and language.
 //It will return the aid number(s) and anime name(s) from the AnimeTitles struct.
-func AnimeSearch(animeTitlesStruct AnimeTitles, animename string, animelang string) [][]string {
-	var searchresults [][]string
+func AnimeSearch(animeTitlesStruct AnimeTitles, animename string, animelang string) []AnimeTitleSearchResults {
+	var searchresults []AnimeTitleSearchResults
 	for _, aid := range animeTitlesStruct.AnimeList {
 		for x, title := range aid.Title {
 			if AnimeTitleCompare(aid.Title[x], animename, animelang) == true {
-				searchresults = append(searchresults, []string{strconv.Itoa(aid.Aid), title.Name})
+				var result AnimeTitleSearchResults
+				result.Name = title.Name
+				result.Aid = strconv.Itoa(aid.Aid)
+				searchresults = append(searchresults, result)
 			}
 		}
 	}
@@ -123,10 +108,9 @@ func AnimeTitleCompare(animetitle AnimeTitle, animename string, animelang string
 	}
 	return false
 }
-func AnimeSearchWrapper(RunningConfig *env.Config, animename string) [][]string {
+func AnimeSearchWrapper(RunningConfig *env.Config, animename string) []AnimeTitleSearchResults {
 	AnimeTitlesCheck(RunningConfig)
 	animexml := AnimeParse(RunningConfig.ProgramConfigPath + "/cache/anime-titles.xml")
 	results := AnimeSearch(animexml, animename, "en")
-	log.Println(results)
 	return results
 }
