@@ -8,8 +8,6 @@ import (
 	"net/http"
 	"os"
 	"strconv"
-	//"strings"
-	//"time"
 )
 
 //AnimeTitlesGet downloades the anime-titles.xml file from AniDB.
@@ -19,7 +17,6 @@ func AnimeDetailsGet(aid string, runningconfig *env.Config) {
 		"&clientver=" + strconv.Itoa(runningconfig.Clientver) + "&protover=" +
 		strconv.Itoa(runningconfig.Protover) + "&aid=" + aid
 	log.Println("downloading anime details")
-	log.Println(url)
 	res, err := http.Get(url)
 	if err != nil {
 		log.Println(err)

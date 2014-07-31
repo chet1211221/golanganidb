@@ -1,16 +1,6 @@
 package anidbapi
 
-import (
-//"encoding/xml"
-//"github.com/chetbishop/golanganidb/env"
-//"io/ioutil"
-//"log"
-//"net/http"
-//"os"
-//"strconv"
-//"strings"
-//"time"
-)
+import ()
 
 //AnimeTitles is the struct for the top level of anime-titles.xml
 type AnimeTitles struct {
@@ -36,5 +26,17 @@ type AnimeTitleSearchResults struct {
 	Aid  string
 }
 type AnimeDetails struct {
-	Aid int `xml:"id,attr"`
+	Aid          int      `xml:"id,attr"`
+	Episodes     Episodes `xml:"episodes"`
+	EpisodeCount int      `xml:"episodecount"`
+	StartDate    string   `xml:"startdate"`
+	EndDate      string   `xml:"enddate"`
+}
+type Episodes struct {
+	Episode []Episode `xml:"episode"`
+}
+type Episode struct {
+	Epno    string       `xml:"epno"`
+	Airdate string       `xml:"airdate"`
+	Title   []AnimeTitle `xml:"title"`
 }

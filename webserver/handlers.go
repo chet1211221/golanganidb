@@ -4,7 +4,7 @@ import (
 	"github.com/chetbishop/golanganidb/apis/anidb"
 	"github.com/chetbishop/golanganidb/database"
 	"html/template"
-	"log"
+	//"log"
 	"net/http"
 )
 
@@ -42,9 +42,14 @@ func addAddHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	for x := range r.Form {
 		database.AddShow(DB, r.FormValue(x), x)
-		anidbapi.AnimeDetailsGet(r.FormValue(x), runningConfig)
+		database.AddShowTable(DB, r.FormValue(x))
+		anidbapi.AnimeDetailsCheck(r.FormValue(x), runningConfig)
 		result := anidbapi.AnimeDetailsParse(runningConfig.ProgramConfigPath + "/cache/" + r.FormValue(x) + ".xml")
-		log.Println(result)
+		database.PopulateShowWithEpisode(DB, result, "en")
+		//log.Printf("%+v", result)
 	}
 	http.Redirect(w, r, "/", http.StatusFound)
+}
+func animeHandler(w http.ResponseWriter, r *http.Request) {
+
 }
