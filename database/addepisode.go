@@ -9,21 +9,21 @@ import (
 
 //episodenumber integer not null primary key, name text, airdate text
 
-func AddEpisode(db *sql.DB, aid int, epno string, name string, airdate string) {
+func AddEpisode(db *sql.DB, aid int, epno string, name string, airdate string, status string) {
 	tx, err := db.Begin()
 	if err != nil {
 		log.Println(err)
 	}
-	line := "insert into aid_" + strconv.Itoa(aid) + "(episodenumber, name, airdate) values(?, ?, ?)"
+	line := "insert into aid_" + strconv.Itoa(aid) + "(episodenumber, name, airdate, status) values(?, ?, ?, ?)"
 	stmt, err := tx.Prepare(line)
 	if err != nil {
 		log.Println(err)
 	}
 	defer stmt.Close()
-	result, err := stmt.Exec(epno, name, airdate)
+	_, err = stmt.Exec(epno, name, airdate, status)
 	if err != nil {
 		log.Println(err)
 	}
-	log.Println(result)
+	//log.Println(result)
 	tx.Commit()
 }

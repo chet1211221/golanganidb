@@ -22,8 +22,14 @@ type AnimeTitle struct {
 
 //AnimeTitleSearchResults is the struct for Anime title search results.
 type AnimeTitleSearchResults struct {
-	Name string
-	Aid  string
+	Name    string
+	Aid     string
+	EpName  string
+	Epno    string
+	Airdate string
+	Status  string
+	Lang    string
+	Quality string
 }
 type AnimeDetails struct {
 	Aid          int      `xml:"id,attr"`
@@ -31,6 +37,7 @@ type AnimeDetails struct {
 	EpisodeCount int      `xml:"episodecount"`
 	StartDate    string   `xml:"startdate"`
 	EndDate      string   `xml:"enddate"`
+	Description  string   `xml:"description"`
 }
 type Episodes struct {
 	Episode []Episode `xml:"episode"`
@@ -39,4 +46,5 @@ type Episode struct {
 	Epno    string       `xml:"epno"`
 	Airdate string       `xml:"airdate"`
 	Title   []AnimeTitle `xml:"title"`
+	Status  string
 }

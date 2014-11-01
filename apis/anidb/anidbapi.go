@@ -108,9 +108,9 @@ func AnimeTitleCompare(animetitle AnimeTitle, animename string, animelang string
 	}
 	return false
 }
-func AnimeSearchWrapper(RunningConfig *env.Config, animename string) []AnimeTitleSearchResults {
+func AnimeSearchWrapper(RunningConfig *env.Config, animename string, animelang string) []AnimeTitleSearchResults {
 	AnimeTitlesCheck(RunningConfig)
 	animexml := AnimeParse(RunningConfig.ProgramConfigPath + "/cache/anime-titles.xml")
-	results := AnimeSearch(animexml, animename, "en")
+	results := AnimeSearch(animexml, animename, animelang)
 	return results
 }

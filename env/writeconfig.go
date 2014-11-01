@@ -1,6 +1,7 @@
 package env
 
 import (
+	//"github.com/chetbishop/golanganidb/apis/newznab"
 	"log"
 	"os"
 	"strconv"
@@ -21,6 +22,7 @@ func WriteConfig(configfile string, configstruct *Config) {
 		log.Println(err, "Unable to create configuration file for program.")
 	}
 	defer configfilecreated.Close()
+	configfilecreated.WriteString("****AniDB Info****" + "\r\n")
 	configfilecreated.WriteString("client=" + configstruct.Client + "\r\n")
 	configfilecreated.WriteString("clientver=" + strconv.Itoa(configstruct.Clientver) + "\r\n")
 	configfilecreated.WriteString("protover=" + strconv.Itoa(configstruct.Protover) + "\r\n")
@@ -28,4 +30,9 @@ func WriteConfig(configfile string, configstruct *Config) {
 	configfilecreated.WriteString("port=" + strconv.Itoa(configstruct.Port) + "\r\n")
 	configfilecreated.WriteString("programdatapath=" + configstruct.ProgramDataPath + "\r\n")
 	configfilecreated.WriteString("programconfigpath=" + configstruct.ProgramConfigPath + "\r\n")
+	configfilecreated.WriteString("****Newznab Provider Info****" + "\r\n")
+	for x, provider := range configstruct.Provider {
+		configfilecreated.WriteString("provider" + strconv.Itoa(x) + "=" + provider.BaseUrl + "\r\n")
+		configfilecreated.WriteString("provider=" + provider.ApiKey + "\r\n")
+	}
 }

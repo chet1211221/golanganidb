@@ -17,7 +17,7 @@ func WebServer(runningConfigImport *env.Config, db *sql.DB) {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/add/search", addSearchHandler)
 	mux.HandleFunc("/add/add", addAddHandler)
-	mux.HandleFunc("/anime", animeHandler)
+	mux.HandleFunc("/anime/", animeHandler)
 	mux.HandleFunc("/", homeHandler)
 	fscss := justFilesFilesystem{http.Dir("web/css/")}
 	fsjs := justFilesFilesystem{http.Dir("web/js/")}
@@ -31,4 +31,5 @@ type Page struct {
 	Body  string                             //Body in byte form.
 	URL   string                             //URL of the request
 	Anime []anidbapi.AnimeTitleSearchResults //various anime information
+	Lang  string
 }

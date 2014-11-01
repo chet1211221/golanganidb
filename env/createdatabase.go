@@ -19,7 +19,7 @@ func CreateDatabase(RunningConfig *Config) *sql.DB {
 		log.Fatal(err)
 	}
 	sql := `
-create table shows (aid integer not null primary key, name text);
+create table shows (aid integer not null primary key, name text, description text, lang text, quality text);
 `
 	_, err = DB.Exec(sql)
 	if err != nil {

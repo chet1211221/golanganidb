@@ -1,27 +1,28 @@
 {{/* HTML body for searching for anime */}}
 {{define "addAnimeResults"}}
-<div class="main-container">
-            <div class="main wrapper clearfix">
-                <article>
-                    <header>
-                     	<h1>Anime Search Results</h1>
-                        <form action="/add/add" method="POST" id="searchform">
-			{{range .Anime}}			
-			<div><input type="radio" name="{{.Name}}" value="{{.Aid}}">{{.Name}}<br></div>
-			{{end}}
-			<div><input type="submit" value="Submit"></div>
-			</form>
-			<p>Search Results</p>
-
-
-
-		     </header>
-                </article>
-                <aside>
-                    <h3>Note</h3>
-                    <p>Results from searching the AniDB database. Feel free to select more than one entry to add to the local database.  Some titles may refer to the same anime series.  In this case only one title will appear in the local database.</p>
-                </aside>
-
-            </div> <!-- #main -->
-        </div> <!-- #main-container -->
+<div class="container">
+	<div class="row">
+		<div class="col-md-8">
+			<h1>Anime Search Results</h1>
+				<form class="form" role="form" action="/add/add" method="POST" id="searchanimeresults">
+					<div class="form-group">
+						<label class="sr-only" for="searchanimeresults">Anime Language</label>
+						<input class="hide" type="text" name="animelang" value={{.Lang}} placeholder="Anime Language Placeholder" readonly>
+						<select multiple class="form-control" name="titles">
+							{{range .Anime}}			
+							<option name="{{.Name}}" value="{{.Aid}},{{.Name}}">{{.Name}}</option>
+							{{end}}
+						</select>
+						<label class="control-label" for="searchforanime">Anime Quailty</label>
+						<select class="form-control" name="animequality">
+							<option value="720p">720p</option>
+							<option value="1080p">1080p</option>
+							<option value="HDTV">HDTV</option>
+						</select>
+						<input type="submit" value="Submit">
+					</div>
+				</form>
+		</div>
+	</div>
+</div>
 {{end}}

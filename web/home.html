@@ -1,31 +1,33 @@
 {{/* HTML body for searching for anime */}}
 {{define "home"}}
-<div class="main-container">
-            <div class="main wrapper clearfix">
-                <article>
-                    <header>
-                     	<h1>Go AniDB</h1>
-				<p>AniDB HTTP interface used to track and download anime.</p>
-                    </header>
-		    <section>
+<div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                     	<h1>laxMunchies</h1>
+				<p>Keep track of your favorite TV shows, anime, movies, and music</p>
+                    </div>
+			</div>
+		<div class="row">
+		<div class="col-md-4">
                         <h2>Anime</h2>
-                        <table>
+			<p>Anime info is from the AniDB HTTP API.</p>
+                        <table class="table table-condensed">
+					<thead>				
 				<tr>
 					<th>Name</th>
+					<th>Quality</th>					
 				</tr>
+				</thead>
+				<tbody>
 					{{range .Anime}}
 					<tr>					
-					<td><a href="/anime/{{.Name}}/">{{.Name}}</td>
+					<td><a href="/anime/{{.Aid}}/">{{.Name}}</td>
+					<td>{{.Quality}}
 					</tr>
 					{{end}}
+				</tbody>
 			</table>
-                    </section>
-                </article>
-                <aside>
-                    <h3>aside</h3>
-                    <p>This is an aside.  I don't know what to do with it yet.</p>
-                </aside>
-
-            </div> <!-- #main -->
-        </div> <!-- #main-container -->
+            </div>
+	</div>
+        </div> <!-- #Container-fluid -->
 {{end}}

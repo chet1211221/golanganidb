@@ -1,21 +1,81 @@
 {{/* HTML body for searching for anime */}}
 {{define "addAnimeSearch"}}
-<div class="main-container">
-            <div class="main wrapper clearfix">
-                <article>
-                    <header>
-                     	<h1>Enter Anime</h1>
-                        <form action="/add/search" method="POST" id="searchform">
-			<div><input type="text" name="animename">
-			<input type="submit" value="Search"></div>
-			</form>
-                    </header>
-                </article>
-                <aside>
-                    <h3>aside</h3>
-                    <p>This is an aside.  I don't know what to do with it yet.</p>
-                </aside>
+<div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                     	<h1>Add Anime</h1>
+						<form class="form-inline" role="form" action="/add/search" method="POST" id="searchforanime">
+						<div class="form-group">
+							<label class="sr-only" for="searchforanime">Anime Search</label>
+							<input type="text" class="form-control" name="animename" placeholder="Anime Name">
+							<label class="sr-only" for="searchforanime">Language</label>
+							<select class="form-control" name="animelang">
+							<option value="en">English</option>
+							<option value="other">Other</option>
+							<option value="al">albanian</option>
+<option value="ar">arabic</option>
+<option value="bd">bengali</option>
+<option value="pt-BR">brazilian portuguese</option>
+<option value="bg">bulgarian</option>
+<option value="ca">catalan</option>
+<option value="zh-x-yue">chinese (cantonese)</option>
+<option value="zh-x-cmn">chinese (mandarin)</option>
+<option value="zh-Hans">chinese (simplified)</option>
+<option value="zh-x-nan">chinese (taiwanese)</option>
+<option value="zh-Hant">chinese (traditional)</option>
+<option value="zh">chinese (unspecified)</option>
+<option value="hr">croatian</option>
+<option value="cs">czech</option>
+<option value="da">danish</option>
+<option value="nl">dutch</option>
+<option value="en">english</option>
+<option value="et">estonian</option>
+<option value="fi">finnish</option>
+<option value="fr">french</option>
+<option value="gl">galician</option>
+<option value="ka">georgian</option>
+<option value="de">german</option>
+<option value="el">greek</option>
+<option value="he">hebrew</option>
+<option value="hu">hungarian</option>
+<option value="is">icelandic</option>
+<option value="id">indonesian</option>
+<option value="x-in">instrumental</option>
+<option value="it">italian</option>
+<option value="ja">japanese</option>
+<option value="x-jat">japanese (transcription)</option>
+<option value="jv">javanese</option>
+<option value="ko">korean</option>
+<option value="x-kot">korean (transcription)</option>
+<option value="la">latin</option>
+<option value="es-LA">latin american spanish</option>
+<option value="lv">latvian</option>
+<option value="lt">lithuanian</option>
+<option value="my">malay</option>
+<option value="no">norwegian</option>
+<option value="x-other">other</option>
+<option value="pl">polish</option>
+<option value="pt">portuguese</option>
+<option value="ro">romanian</option>
+<option value="ru">russian</option>
+<option value="sr">serbian</option>
+<option value="sk">slovak</option>
+<option value="sl">slovenian</option>
+<option value="es">spanish</option>
+<option value="sv">swedish</option>
+<option value="ta">tamil</option>
+<option value="tt">tatar</option>
+<option value="th">thai</option>
+<option value="tr">turkish</option>
+<option value="uk">ukrainian</option>
+<option value="x-unk">unknown</option>
+<option value="vi">vietnamese</option>
 
-            </div> <!-- #main -->
-        </div> <!-- #main-container -->
+							</select>
+							<input type="submit" value="search">
+						</div>
+						</form>
+                 </div>
+			</div>
+</div> <!-- #main-container -->
 {{end}}

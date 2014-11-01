@@ -1,0 +1,40 @@
+{{/* HTML body for searching for anime */}}
+{{define "animeAid"}}
+<div class="container">
+            <div class="row">
+		<div class="col-md-8">
+                        <h1>{{.Title}}</h1>
+						<p>{{.Body}}</p>
+
+</div>
+</div>
+<div class="row">
+<div class="col-md-4">
+			<table class="table table-responsive">
+                        <table class="table table-condensed">
+				<thead>				
+				<tr>
+					<th>Episode</th>
+					<th>Air Date</th>					
+					<th>Name</th>
+					<th>Status</th>
+					<th>Quality</th>
+				</tr>
+				</thead>
+				<tbody>
+					{{range .Anime}}
+					<tr>					
+					<td>{{.Epno}}</td>
+					<td>{{.Airdate}}</td>					
+					<td>{{.EpName}}</td>
+					<td>{{.Status}}</td>
+					<td>{{.Quality}}</td>
+					</tr>
+					{{end}}
+				</tbody>
+			</table>
+			</table>
+		</div>
+            </div> <!-- #main -->
+        </div> <!-- #main-container -->
+{{end}}
