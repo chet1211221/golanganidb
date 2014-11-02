@@ -5,6 +5,7 @@ type NewznabSearchResult struct {
 	Guid  string `xml:"guid"`
 }
 type Newznab struct {
+	Name    string
 	BaseUrl string
 	ApiKey  string
 }

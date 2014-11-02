@@ -2,7 +2,9 @@ package webserver
 
 import (
 	"github.com/chetbishop/golanganidb/apis/anidb"
+	"github.com/chetbishop/golanganidb/apis/newznab"
 	"github.com/chetbishop/golanganidb/database"
+	"github.com/chetbishop/golanganidb/env"
 	"html/template"
 	"log"
 	"net/http"
@@ -43,7 +45,6 @@ func addSearchHandler(w http.ResponseWriter, r *http.Request) {
 }
 func addAddHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
-	log.Println(r.Form)
 	animelang := r.FormValue("animelang")
 	animequality := r.FormValue("animequality")
 	for x := range r.Form["titles"] {
@@ -69,4 +70,29 @@ func animeHandler(w http.ResponseWriter, r *http.Request) {
 	t.ExecuteTemplate(w, "header", p)
 	t.ExecuteTemplate(w, "animeAid", p)
 	t.ExecuteTemplate(w, "footer", p)
+}
+
+func providersHandler(w http.ResponseWriter, r *http.Request) {
+	var p Page
+	p.Title = "NewzNab Providers"
+	p.RunningConfig = runningConfig
+	if r.Method == "GET" {
+		t, _ := template.ParseFiles("web/settingsProviders.html", "web/header.html", "web/footer.html")
+		t.ExecuteTemplate(w, "header", p)
+		t.ExecuteTemplate(w, "settingsProviders", p)
+		t.ExecuteTemplate(w, "footer", p)
+	} else if r.Method == "POST" {
+		r.ParseForm()
+		var x newznabapi.Newznab
+		x.Name = r.FormValue("name")
+		x.BaseUrl = r.FormValue("baseurl")
+		x.ApiKey = r.FormValue("apikey")
+		p.RunningConfig.Provider = append(p.RunningConfig.Provider, x)
+		t, _ := template.ParseFiles("web/settingsProviders.html", "web/header.html", "web/footer.html")
+		t.ExecuteTemplate(w, "header", p)
+		t.ExecuteTemplate(w, "settingsProviders", p)
+		t.ExecuteTemplate(w, "footer", p)
+		env.WriteConfig(runningConfig.ProgramConfigPath+"/golanganidb.conf", runningConfig)
+	}
+
 }

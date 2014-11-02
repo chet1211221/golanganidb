@@ -2,6 +2,7 @@ package env
 
 import (
 	//"fmt"
+	"github.com/chetbishop/golanganidb/apis/newznab"
 	"io/ioutil"
 	"log"
 	"strconv"
@@ -39,6 +40,17 @@ func (newconfig *Config) configtostruct(configstring []string) *Config {
 	newconfig.Port, _ = strconv.Atoi(stringsearch(configstring, "port"))
 	newconfig.ProgramConfigPath = stringsearch(configstring, "programconfigpath")
 	newconfig.ProgramDataPath = stringsearch(configstring, "programdatapath")
+	providerscount, err := strconv.Atoi(stringsearch(configstring, "providers"))
+	if err != nil {
+		log.Println(err)
+	}
+	for i := 0; i <= providerscount-1; i++ {
+		var x newznabapi.Newznab
+		x.Name = stringsearch(configstring, "provider"+strconv.Itoa(i)+"Name")
+		x.BaseUrl = stringsearch(configstring, "provider"+strconv.Itoa(i)+"Url")
+		x.ApiKey = stringsearch(configstring, "provider"+strconv.Itoa(i)+"ApiKey")
+		newconfig.Provider = append(newconfig.Provider, x)
+	}
 	return newconfig
 }
 

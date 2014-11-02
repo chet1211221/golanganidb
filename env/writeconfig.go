@@ -17,7 +17,7 @@ import (
 //running will not be saved
 //Process: Created the configuration file and write the Config struct to disk.
 func WriteConfig(configfile string, configstruct *Config) {
-	configfilecreated, err := os.OpenFile(configfile, os.O_RDWR|os.O_CREATE, 0550)
+	configfilecreated, err := os.OpenFile(configfile, os.O_RDWR|os.O_CREATE, 0660)
 	if err != nil {
 		log.Println(err, "Unable to create configuration file for program.")
 	}
@@ -31,8 +31,10 @@ func WriteConfig(configfile string, configstruct *Config) {
 	configfilecreated.WriteString("programdatapath=" + configstruct.ProgramDataPath + "\r\n")
 	configfilecreated.WriteString("programconfigpath=" + configstruct.ProgramConfigPath + "\r\n")
 	configfilecreated.WriteString("****Newznab Provider Info****" + "\r\n")
+	configfilecreated.WriteString("providers=" + strconv.Itoa(len(configstruct.Provider)) + "\r\n")
 	for x, provider := range configstruct.Provider {
-		configfilecreated.WriteString("provider" + strconv.Itoa(x) + "=" + provider.BaseUrl + "\r\n")
-		configfilecreated.WriteString("provider=" + provider.ApiKey + "\r\n")
+		configfilecreated.WriteString("provider" + strconv.Itoa(x) + "Name=" + provider.Name + "\r\n")
+		configfilecreated.WriteString("provider" + strconv.Itoa(x) + "Url=" + provider.BaseUrl + "\r\n")
+		configfilecreated.WriteString("provider" + strconv.Itoa(x) + "ApiKey=" + provider.ApiKey + "\r\n")
 	}
 }
