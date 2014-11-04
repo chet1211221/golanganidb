@@ -27,6 +27,7 @@ func PopulateShowWithEpisode(db *sql.DB, animedetails anidbapi.AnimeDetails, ani
 		if epno != 0 {
 			//log.Println(aid, epno, name, airdate)
 			AddEpisode(db, aid, strconv.Itoa(epno), name, airdate, status)
+			UpdateEpisodeName(db, aid, strconv.Itoa(epno), name)
 		}
 	}
 }

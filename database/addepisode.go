@@ -27,3 +27,41 @@ func AddEpisode(db *sql.DB, aid int, epno string, name string, airdate string, s
 	//log.Println(result)
 	tx.Commit()
 }
+
+func UpdateEpisodeName(db *sql.DB, aid int, epno string, name string) {
+	tx, err := db.Begin()
+	if err != nil {
+		log.Println(err)
+	}
+	line := "update aid_" + strconv.Itoa(aid) + " SET name=" + "'" + name + "'" + " WHERE episodenumber=" + epno
+	stmt, err := tx.Prepare(line)
+	if err != nil {
+		log.Println(err)
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec()
+	if err != nil {
+		log.Println(err)
+	}
+	//log.Println(result)
+	tx.Commit()
+}
+
+func UpdateEpisodeStatus(db *sql.DB, aid int, epno string, status string) {
+	tx, err := db.Begin()
+	if err != nil {
+		log.Println(err)
+	}
+	line := "update aid_" + strconv.Itoa(aid) + " SET status=" + "'" + status + "'" + " WHERE episodenumber=" + epno
+	stmt, err := tx.Prepare(line)
+	if err != nil {
+		log.Println(err)
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec()
+	if err != nil {
+		log.Println(err)
+	}
+	//log.Println(result)
+	tx.Commit()
+}

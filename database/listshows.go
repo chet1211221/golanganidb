@@ -40,21 +40,23 @@ func ListShows(db *sql.DB) []anidbapi.AnimeTitleSearchResults {
 		aid     int
 		name    string
 		quality string
+		lang    string
 	)
 	var results []anidbapi.AnimeTitleSearchResults
-	rows, err := db.Query("select aid, name, quality from shows")
+	rows, err := db.Query("select aid, name, quality, lang from shows")
 	if err != nil {
 		log.Println(err)
 	}
 	for rows.Next() {
 		var result anidbapi.AnimeTitleSearchResults
-		err := rows.Scan(&aid, &name, &quality)
+		err := rows.Scan(&aid, &name, &quality, &lang)
 		if err != nil {
 			log.Println(err)
 		}
 		result.Aid = strconv.Itoa(aid)
 		result.Name = name
 		result.Quality = quality
+		result.Lang = lang
 		err = rows.Err()
 		if err != nil {
 			log.Println(err)
