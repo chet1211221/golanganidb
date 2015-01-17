@@ -20,7 +20,6 @@ var DB *sql.DB
 func Background(runningConfigImport *env.Config, db *sql.DB) {
 	runningConfig = runningConfigImport
 	DB = db
-	//AnimeTitlesCheck(RunningConfig)
 	go UpdateShowsBackground()
-
+	GetDowloadEppisodes()
 }
